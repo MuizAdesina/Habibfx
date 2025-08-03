@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Disclosure | Habib Forex Academy</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f9f9f9;
+        }
+        
+        .disclosure-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--primary-color);
+            font-weight: 300;
+        }
+        
+        .disclosure-content {
+            margin-bottom: 2rem;
+        }
+        
+        .warning-box {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning-title {
+            display: flex;
+            align-items: center;
+            color: #ff9800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .accept-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        #acceptCheckbox {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-color);
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .disclosure-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="disclosure-container">
+        <header>
+            <!-- Replace with your actual logo -->
+            <img src="https://via.placeholder.com/150x50?text=Habib+Forex+Academy" alt="Habib Forex Academy Logo" class="logo">
+            <h1>Risk Disclosure Statement</h1>
+            <p class="subtitle">Important Information About Trading Risks</p>
+        </header>
+        
+        <div class="disclosure-content">
+            <p>Forex trading offers exciting opportunities, but it's crucial to understand the risks involved before participating in the markets.</p>
+            
+            <div class="warning-box">
+                <div class="warning-title">
+                    <i class="fas fa-exclamation-triangle warning-icon"></i>
+                    <strong>Important Warning</strong>
+                </div>
+                <p>Forex is powerful — but just like any business, it comes with risk. We don't promise overnight success. Your results depend on discipline, consistency, and the right mindset.</p>
+            </div>
+            
+            <h3>Key Points to Consider:</h3>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li style="margin-bottom: 0.5rem;">Forex trading involves substantial risk of loss and is not suitable for all investors</li>
+                <li style="margin-bottom: 0.5rem;">Past performance is not indicative of future results</li>
+                <li style="margin-bottom: 0.5rem;">Leverage can work against you as well as for you</li>
+                <li style="margin-bottom: 0.5rem;">You may lose more than your initial investment</li>
+            </ul>
+            
+            <p style="margin-top: 1.5rem;">At Habib Forex Academy, we're here to guide and support you through education and training, but profits or losses are 100% your responsibility. We provide educational content only - we are not financial advisors.</p>
+        </div>
+        
+        <div class="accept-section">
+            <div class="checkbox-container">
+                <input type="checkbox" id="acceptCheckbox">
+                <label for="acceptCheckbox">I understand and accept the risks involved in Forex trading</label>
+            </div>
+            <button id="continueBtn" class="btn" disabled>Continue to Academy</button>
+        </div>
+        
+        <footer>
+            <p>© 2023 Habib Forex Academy. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">This is not investment advice. Consult with a qualified financial advisor before making any investment decisions.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('acceptCheckbox');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            // Enable/disable continue button based on checkbox
+            checkbox.addEventListener('change', function() {
+                continueBtn.disabled = !this.checked;
+            });
+            
+            // Continue button functionality
+            continueBtn.addEventListener('click', function() {
+                // Here you would typically redirect to the main academy page
+                // For demonstration, we'll show an alert
+                alert('Thank you for acknowledging the risks. Redirecting to Habib Forex Academy...');
+                // window.location.href = "https://academy.habibforex.com";
+            });
+            
+            // Add smooth scroll to all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
