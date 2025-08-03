@@ -6,296 +6,1986 @@
     <title>HABIB FX Trading Academy - Become a Pro Trader</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Previous CSS remains the same, adding new text animation styles below */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.05);
+        }
 
-        /* Enhanced Text Animation Classes */
-        .text-animate {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.fade-out {
             opacity: 0;
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            visibility: hidden;
         }
 
-        .text-fade-up {
-            transform: translateY(30px);
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s ease-in-out infinite;
         }
 
-        .text-fade-down {
-            transform: translateY(-30px);
-        }
-
-        .text-fade-left {
-            transform: translateX(50px);
-        }
-
-        .text-fade-right {
-            transform: translateX(-50px);
-        }
-
-        .text-scale-up {
-            transform: scale(0.8);
-        }
-
-        .text-rotate {
-            transform: rotate(5deg);
-        }
-
-        .text-animate.visible {
-            opacity: 1;
-            transform: translate(0) scale(1) rotate(0);
-        }
-
-        /* Character-by-character animation */
-        .text-split {
-            display: inline-block;
-            overflow: hidden;
-        }
-
-        .text-split span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(1em);
-            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .text-split.visible span {
-            opacity: 1;
+        /* Header Styles */
+        header {
+             background: linear-gradient(135deg, #25eb2b, var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
             transform: translateY(0);
         }
 
-        /* Glitch text effect */
-        .text-glitch {
+        header.hide {
+            transform: translateY(-100%);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background:rgb(235 64 37 / 95%);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary);
+            transform: translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .logo:hover::after {
+            transform: translateX(0);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .logo:hover i {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
             position: relative;
         }
 
-        .text-glitch::before,
-        .text-glitch::after {
-            content: attr(data-text);
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        nav ul li a:hover::before {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a.active::before {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn .hamburger {
+            width: 25px;
+            height: 2px;
+            background-color: white;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn .hamburger::before,
+        .mobile-menu-btn .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn .hamburger::before {
+            top: -8px;
+        }
+
+        .mobile-menu-btn .hamburger::after {
+            top: 8px;
+        }
+
+        .mobile-menu-btn.active .hamburger {
+            background-color: transparent;
+        }
+
+        .mobile-menu-btn.active .hamburger::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .mobile-menu-btn.active .hamburger::after {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 63vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
         }
 
-        .text-glitch::before {
-            color: var(--secondary);
-            animation: glitch-effect 3s infinite;
-        }
-
-        .text-glitch::after {
-            color: var(--primary);
-            animation: glitch-effect 2s infinite reverse;
-        }
-
-        @keyframes glitch-effect {
-            0% { transform: translate(0); opacity: 0; }
-            20% { transform: translate(-3px, 3px); opacity: 0.6; }
-            40% { transform: translate(-3px, -3px); opacity: 0.6; }
-            60% { transform: translate(3px, 3px); opacity: 0.6; }
-            80% { transform: translate(3px, -3px); opacity: 0.6; }
-            100% { transform: translate(0); opacity: 0; }
-        }
-
-        /* Shine text effect */
-        .text-shine {
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
             position: relative;
-            display: inline-block;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
         }
 
-        .text-shine::after {
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, white, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeIn 1.5s ease 1s both;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            animation: pulse 2s infinite;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            background-color: #e69009;
+            animation: none;
+        }
+
+        .btn:active {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
         }
 
-        .text-shine:hover::after {
+        .btn:hover::before {
             left: 100%;
         }
 
-        /* Hero Section Text Enhancements */
-        .hero-title span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px) rotate(5deg);
-            filter: blur(3px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0.5, 1);
+        .btn-primary {
+    background-color: #81555500;
+            color: white;
         }
 
-        .hero-title.visible span {
-            opacity: 1;
-            transform: translateY(0) rotate(0);
-            filter: blur(0);
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
         }
 
-        /* Section Title Enhancements */
+        /* Floating coins animation */
+        .floating-coins {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .coin {
+            position: absolute;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float linear infinite;
+            will-change: transform;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
         .section-title h2 {
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .section-title h2 .title-line {
-            display: inline-block;
-            transform: translateY(100%);
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .section-title.visible h2 .title-line {
-            transform: translateY(0);
-        }
-
-        /* Feature List Enhancements */
-        .feature-list li {
-            overflow: hidden;
-        }
-
-        .feature-list li span {
-            display: inline-block;
-            transform: translateX(-100%);
-            transition: transform 0.6s cubic-bezier(0.5, 0, 0, 1);
-            transition-delay: calc(0.05s * var(--i));
-        }
-
-        .feature-card:hover .feature-list li span {
-            transform: translateX(0);
-        }
-
-        /* Pricing Card Enhancements */
-        .pricing-header h3 span {
-            display: inline-block;
-            transform: translateY(50%);
-            opacity: 0;
-            transition: all 0.6s ease;
-        }
-
-        .pricing-card:hover .pricing-header h3 span {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Testimonial Text Enhancements */
-        .testimonial-text p {
-            transform: perspective(500px) rotateX(45deg);
-            transform-origin: bottom;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .testimonial-slide.active .testimonial-text p {
-            transform: perspective(500px) rotateX(0);
-            opacity: 1;
-        }
-
-        /* Newsletter Enhancements */
-        .newsletter h2 .newsletter-title {
+            font-size: 2.5rem;
             display: inline-block;
             position: relative;
-            overflow: hidden;
+            padding-bottom: 3rem;
         }
 
-        .newsletter h2 .newsletter-title::after {
+        .section-title h2::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
             background-color: var(--secondary);
-            transition: width 1s cubic-bezier(0.5, 0, 0, 1);
-            transition-delay: 0.3s;
+            border-radius: 2px;
+            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .newsletter.visible h2 .newsletter-title::after {
-            width: 100%;
+        .section-title:hover h2::after {
+            width: 120px;
         }
 
-        /* Footer Link Enhancements */
-        .footer-links li a {
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
-            display: inline-block;
+            z-index: 1;
+            transform: perspective(1000px) rotateY(0deg);
+            will-change: transform, box-shadow;
         }
 
-        .footer-links li a span {
-            position: relative;
-            display: inline-block;
-            transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+        .feature-card:hover {
+            transform: translateY(-10px) perspective(1000px) rotateY(5deg);
+            box-shadow: var(--shadow-xl);
         }
 
-        .footer-links li a span::before {
-            content: attr(data-text);
+        .feature-card::before {
+            content: '';
             position: absolute;
-            top: 100%;
+            top: 0;
             left: 0;
+            width: 100%;
+            height: 5px;
+        background-color: #3bb75e;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover::before {
+            height: 10px;
+            background-color: var(--secondary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+               color: #25eb59;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover h3 {
             color: var(--secondary);
-            transform: translateY(0);
-            transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .footer-links li a:hover span {
-            transform: translateY(-100%);
-        }
-
-        .footer-links li a:hover span::before {
-            transform: translateY(-100%);
-        }
-
-        /* Button Text Enhancements */
-        .btn span {
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover span {
             transform: translateX(5px);
         }
 
-        /* Special Highlight Text */
-        .highlight-text {
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
             position: relative;
-            display: inline-block;
+            padding-left: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .feature-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .feature-list li:hover::before {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Enhanced Image Gallery with Advanced Animations */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            aspect-ratio: 16/9;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.03) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1) rotate(1deg);
+            filter: brightness(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-caption h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .gallery-item:hover .gallery-caption h4 {
+            transform: translateY(0);
+        }
+
+        .gallery-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        .gallery-item:hover .gallery-caption p {
+            transform: translateY(0);
+        }
+
+        /* Glow Effect */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
             z-index: 1;
         }
 
-        .highlight-text::after {
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us {
+            background-color: #f1f5f9;
+        }
+
+        .reasons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .reason-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            will-change: transform, box-shadow;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .reason-card::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 40%;
-            background-color: rgba(245, 158, 11, 0.3);
-            z-index: -1;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s cubic-bezier(0.5, 0, 0, 1);
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
         }
 
-        .highlight-text.visible::after {
-            transform: scaleX(1);
+        .reason-card:hover::after {
+            height: 10px;
+        }
+
+        .reason-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: inline-block;
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+
+        .reason-card:hover .reason-icon {
+            transform: scale(1.2) rotate(10deg);
+            color: var(--secondary);
+        }
+
+        .reason-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .reason-card:hover h3 {
+            color: var(--secondary);
+        }
+
+        /* Book Section */
+        .book-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite linear;
+            z-index: 1;
+        }
+
+        .book-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            will-change: transform, box-shadow;
+        }
+
+        .book-container:hover {
+            transform: perspective(1000px) rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .book-container:hover .book-title {
+            transform: scale(1.05);
+        }
+
+        .book-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .book-container:hover .book-subtitle {
+            transform: translateY(5px);
+        }
+
+        .book-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .book-container:hover .book-price {
+            transform: scale(1.1);
+        }
+
+        .book-price::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary);
+            box-shadow: 0 2px 5px rgba(245, 158, 11, 0.5);
+            transition: var(--transition);
+        }
+
+        .book-container:hover .book-price::after {
+            width: 150px;
+        }
+
+        /* Payment Method Selection */
+        .payment-method-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+
+        .payment-option {
+            position: relative;
+            width: 80px;
+            height: 50px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            will-change: transform, box-shadow, border-color;
+        }
+
+        .payment-option img {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .payment-option:hover img {
+            transform: scale(1.1);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .payment-option .checkmark {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: var(--transition);
+            transform: scale(0.5);
+        }
+
+        .payment-option.selected .checkmark {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            will-change: transform, box-shadow;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--secondary);
+            transform: scale(1.05);
+            animation: pulse-border 2s infinite;
+        }
+
+        .pricing-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.3rem 2rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .pricing-card.popular:hover::before {
+            transform: rotate(45deg) scale(1.1);
+        }
+
+        .pricing-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover .pricing-header::after {
+            height: 10px;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover .pricing-header h3 {
+            transform: scale(1.05);
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover .pricing-price {
+            color: var(--secondary);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-features {
+            padding: 2rem;
+        }
+
+        .pricing-features ul {
+            list-style: none;
+        }
+
+        .pricing-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.8rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-features li:hover {
+            transform: translateX(5px);
+        }
+
+        .pricing-features li.available::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .pricing-features li:hover.available::before {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .pricing-features li.unavailable::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            transition: var(--transition);
+        }
+
+        .pricing-features li:hover.unavailable::before {
+            transform: scale(1.2);
+        }
+
+        .pricing-footer {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: #f1f5f9;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .testimonial-slide::before {
+            content: '\201C';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 8rem;
+            color: rgba(37, 99, 235, 0.1);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+            transition: var(--transition);
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .testimonial-slide:hover::before {
+            transform: scale(1.1);
+            color: rgba(37, 99, 235, 0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .testimonial-slide:hover .testimonial-text {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--gray);
+            opacity: 0.3;
+            position: absolute;
+            transition: var(--transition);
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        .testimonial-slide:hover .testimonial-text::before,
+        .testimonial-slide:hover .testimonial-text::after {
+            opacity: 0.5;
+            transform: scale(1.2);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .testimonial-slide:hover .testimonial-author {
+            color: var(--secondary);
+        }
+
+        .testimonial-author::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .testimonial-slide:hover .testimonial-author::after {
+            height: 3px;
+            bottom: -6px;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            will-change: transform, background-color, box-shadow;
+        }
+
+        .slider-dot:hover {
+            transform: scale(1.3);
+            background-color: var(--primary);
+        }
+
+        .slider-dot.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .newsletter:hover h2 {
+            transform: scale(1.05);
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .newsletter:hover p {
+            transform: translateY(5px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            will-change: box-shadow;
+        }
+
+        .newsletter-form input:focus {
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+            transform: scale(1.02);
+        }
+
+        .newsletter-form button {
+            padding: 0 2rem;
+            border-radius: 0 50px 50px 0;
+            border: none;
+            background-color: var(--secondary);
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .newsletter-form button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .newsletter-form button:hover::after {
+            left: 100%;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e69009;
+            transform: scale(1.05);
+        }
+
+        .newsletter-form button:active {
+            transform: scale(0.98);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            background-color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+        }
+
+        .contact-info:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .contact-info:hover h3 {
+            color: var(--secondary);
+        }
+
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .contact-info:hover h3::after {
+            height: 3px;
+            bottom: -6px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .contact-details li:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-details i {
+            margin-right: 1rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .contact-details li:hover i {
+            color: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        /* Advanced Social Media Buttons */
+        .social-media-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            will-change: transform, box-shadow;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: linear-gradient(var(--rotate), #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 200%;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+            animation: animate 2s linear infinite;
+        }
+
+        .social-btn:hover::before {
+            opacity: 1;
+        }
+
+        .social-btn::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover::after {
+            filter: brightness(1.2);
+        }
+
+        .social-btn.facebook {
+            --bg-color: #3b5998;
+            --rotate: 45deg;
+        }
+
+        .social-btn.twitter {
+            --bg-color: #1da1f2;
+            --rotate: 90deg;
+        }
+
+        .social-btn.instagram {
+            --bg-color: #e1306c;
+            --rotate: 135deg;
+        }
+
+        .social-btn.linkedin {
+            --bg-color: #0077b5;
+            --rotate: 180deg;
+        }
+
+        .social-btn.youtube {
+            --bg-color: #ff0000;
+            --rotate: 225deg;
+        }
+
+        .social-btn.whatsapp {
+            --bg-color: #25d366;
+            --rotate: 270deg;
+        }
+
+        .social-btn.telegram {
+            --bg-color: #0088cc;
+            --rotate: 315deg;
+        }
+
+        .social-btn.tiktok {
+            --bg-color: #000000;
+            --rotate: 0deg;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .social-btn:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .payment-method {
+            width: 60px;
+            height: 40px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            overflow: hidden;
+            will-change: transform, box-shadow;
+        }
+
+        .payment-method:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .payment-method img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .payment-method:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Paystack Payment Form */
+        .payment-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            max-width: 500px;
+            margin: 0 auto;
+            transition: var(--transition);
+        }
+
+        .payment-form:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .form-group:hover label {
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+            will-change: transform, box-shadow, border-color;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            transform: scale(1.02);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        footer:hover::before {
+            height: 8px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .footer-col:hover h3 {
+            color: var(--secondary);
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .footer-col:hover h3::after {
+            width: 60px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links a:hover::before {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        footer:hover .footer-bottom {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: var(--shadow-md);
+            z-index: 999;
+            transform: scale(1);
+            will-change: transform, opacity, visibility;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: var(--transition);
+            box-shadow: var(--shadow-xl);
+            will-change: transform;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+            transform: rotate(90deg) scale(1.1);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translateY(0) scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.05);
+                box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+        }
+
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+
+        @keyframes animate {
+            0% {
+                --rotate: 0deg;
+                background-position: 0% 50%;
+            }
+            100% {
+                --rotate: 360deg;
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1000;
+            transition: width 0.1s linear;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--primary-dark);
+                transition: var(--transition);
+                z-index: 999;
+                box-shadow: var(--shadow-xl);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 2rem;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 1.5rem 0;
+                text-align: center;
+            }
+
+            nav ul li a {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .book-title {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+
+            .pricing-card.popular::before {
+                right: -25px;
+                padding: 0.3rem 1.5rem;
+                font-size: 0.7rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .payment-method-selector {
+                justify-content: center;
+            }
+
+            .payment-option {
+                width: 70px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .pricing-card.popular::before {
+                right: -25px;
+                padding: 0.3rem 1.5rem;
+                font-size: 0.7rem;
+            }
+
+            .book-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .book-title {
+                font-size: 1.8rem;
+            }
+
+            .book-price {
+                font-size: 2.5rem;
+            }
+
+            .gallery-item {
+                animation: float 6s ease-in-out infinite !important;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Previous HTML remains the same, updating text elements with enhanced animations below -->
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>HABIB FX Trading Academy</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span class="hamburger"></span>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#why-us">Why Us</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="floating-coins" id="floatingCoins"></div>
         <div class="hero-content">
-            <h1 class="hero-title">
-                <span style="transition-delay: 0.1s">Become</span>
-                <span style="transition-delay: 0.2s">a Pro</span>
-                <span style="transition-delay: 0.3s">Trader</span>
-                <span style="transition-delay: 0.4s">With</span>
-                <span style="transition-delay: 0.5s">Academy</span>
-            </h1>
-            <p class="text-animate text-fade-up" style="transition-delay: 0.6s">In the race to end poverty...</p>
-            <a href="#pricing" class="btn"><span>JOIN THE TEAM</span></a>
+            <h1>Become a Pro Trader With Academy</h1>
+            <p>In the race to end poverty...</p>
+            <a href="#pricing" class="btn btn-primary">JOIN THE TEAM</a>
         </div>
     </section>
 
@@ -303,21 +1993,74 @@
     <section class="section" id="features">
         <div class="container">
             <div class="section-title">
-                <h2><span class="title-line">Complete Trading Masterclass</span></h2>
+                <h2>Complete Trading Masterclass</h2>
             </div>
             <div class="features-grid">
                 <div class="feature-card animate-on-scroll">
-                    <h3 class="text-glitch" data-text="Signals And Setups">Signals And Setups</h3>
+                    <h3>Signals And Setups</h3>
                     <ul class="feature-list">
-                        <li><span style="--i:0">Real-time setups with strategy sent out</span></li>
-                        <li><span style="--i:1">Exact entry and exit prices</span></li>
-                        <li><span style="--i:2">1 - 5 trade setups sent out daily</span></li>
-                        <li><span style="--i:3">Understand the "WHY" of every trade</span></li>
-                        <li><span style="--i:4">Market updates/insights</span></li>
-                        <li><span style="--i:5">Copy every single trade I take</span></li>
+                        <li>Real-time setups with strategy sent out</li>
+                        <li>Exact entry and exit prices</li>
+                        <li>1 - 5 trade setups sent out daily</li>
+                        <li>Understand the "WHY" of every trade</li>
+                        <li>Market updates/insights</li>
+                        <li>Copy every single trade I take</li>
                     </ul>
                 </div>
-                <!-- Other feature cards with similar enhancements -->
+                <div class="feature-card animate-on-scroll" style="transition-delay: 0.1s;">
+                    <h3>Live Lessons And Trading</h3>
+                    <ul class="feature-list">
+                        <li>Live lessons covering strategy and setups</li>
+                        <li>Daily Market overviews</li>
+                        <li>Live trading daily on TikTok</li>
+                        <li>Real-time Q&A on live lessons/trading</li>
+                        <li>Market updates/insights</li>
+                        <li>Zoom calls with all members</li>
+                    </ul>
+                </div>
+                <div class="feature-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <h3>Community Chat And Analysis</h3>
+                    <ul class="feature-list">
+                        <li>Chat and connect with like-minded individuals</li>
+                        <li>Highly supportive and proactive community</li>
+                        <li>Follow other members setups</li>
+                        <li>Share your setups and get feedback from members</li>
+                        <li>Share opinions, news and more</li>
+                        <li>Give and receive help</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Forex/Crypto Image Gallery -->
+            <div class="image-gallery animate-on-scroll">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Forex Trading">
+                    <div class="gallery-caption">
+                        <h4>Forex Market Analysis</h4>
+                        <p>Real-time market data and technical indicators</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Crypto Trading">
+                    <div class="gallery-caption">
+                        <h4>Cryptocurrency Trading</h4>
+                        <p>24/7 crypto markets with advanced charting</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1642790552729-0a214f8c0f5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Charts">
+                    <div class="gallery-caption">
+                        <h4>Advanced Chart Analysis</h4>
+                        <p>Multiple timeframes and drawing tools</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Desk">
+                    <div class="gallery-caption">
+                        <h4>Professional Trading Desk</h4>
+                        <p>Multiple monitors for comprehensive analysis</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -326,18 +2069,105 @@
     <section class="section why-choose-us" id="why-us">
         <div class="container">
             <div class="section-title">
-                <h2><span class="title-line">Why Choose HABIB FX Trading Academy?</span></h2>
-                <p class="text-animate text-fade-up">Our <span class="highlight-text">mentorship program</span> is designed to provide traders with personalized guidance, resources and best support in taking account their trading skill level and goals.</p>
+                <h2>Why Choose HABIB FX Trading Academy?</h2>
+                <p>Our mentorship program is designed to provide traders with personalized guidance, resources and best support in taking account their trading skill level and goals.</p>
             </div>
             <div class="reasons-container">
                 <div class="reason-card animate-on-scroll">
                     <div class="reason-icon">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h3 class="text-animate text-scale-up">Expert Guidance</h3>
-                    <p class="text-animate text-fade-up">Gain access to <span class="text-shine">experienced traders</span> and instructors who can provide valuable insights and mentorship to help you navigate the complex world of cryptocurrency trading.</p>
+                    <h3>Expert Guidance</h3>
+                    <p>Gain access to experienced traders and instructors who can provide valuable insights and mentorship to help you navigate the complex world of cryptocurrency trading.</p>
                 </div>
-                <!-- Other reason cards with similar enhancements -->
+                <div class="reason-card animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="reason-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Comprehensive Education</h3>
+                    <p>HABIB FX Trading academy offers a wide range of educational resources, including video tutorials, articles, and webinars, ensuring you have a solid foundation in crypto trading strategies and techniques.</p>
+                </div>
+                <div class="reason-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="reason-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Active Trading Community</h3>
+                    <p>Explore our vibrant trading community of Over 60,000 Traders where you can network, share ideas, and stay updated on the latest market trends, fostering a supportive and knowledgeable environment.</p>
+                </div>
+                <div class="reason-card animate-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="reason-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Coaching Sessions</h3>
+                    <p>Access personalized coaching sessions where you can address your specific trading challenges and receive tailored guidance to improve your skills.</p>
+                </div>
+            </div>
+            
+            <!-- More Forex Images -->
+            <div class="image-gallery animate-on-scroll" style="margin-top: 3rem;">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Analysis">
+                    <div class="gallery-caption">
+                        <h4>Market Analysis</h4>
+                        <p>Fundamental and technical analysis combined</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1642790552729-0a214f8c0f5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Strategy">
+                    <div class="gallery-caption">
+                        <h4>Trading Strategies</h4>
+                        <p>Proven strategies for all market conditions</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Technical Analysis">
+                    <div class="gallery-caption">
+                        <h4>Technical Analysis</h4>
+                        <p>Master candlestick patterns and indicators</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Risk Management">
+                    <div class="gallery-caption">
+                        <h4>Risk Management</h4>
+                        <p>Protect your capital with proper risk controls</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Section -->
+    <section class="section book-section">
+        <div class="container">
+            <div class="book-container animate-on-scroll">
+                <h2 class="book-title">UNLOCKING CRYPTO PROFITS</h2>
+                <h3 class="book-subtitle">HABIB FX TRADING ACADEMY EDITION</h3>
+                <p>Delve into the world of Technical analysis with this comprehensive trading guide. This book equips both novice and seasoned traders with the essential tools to make informed investment decisions in any market environment.</p>
+                <div class="book-price">$48</div>
+                <a href="#" class="btn" id="bookNowBtn">Buy Now</a>
+                
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Paystack_Logo.png/1200px-Paystack_Logo.png" alt="Paystack">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/PayPal_Logo_Icon_2014.svg/1200px-PayPal_Logo_Icon_2014.svg.png" alt="PayPal">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="Bitcoin">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/1200px-Ethereum-icon-purple.svg.png" alt="Ethereum">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="Mastercard">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -346,17 +2176,133 @@
     <section class="section testimonials">
         <div class="container">
             <div class="section-title">
-                <h2><span class="title-line">Reviews</span></h2>
-                <p class="text-animate text-fade-up">What our <span class="text-shine">students</span> say about us</p>
+                <h2>Reviews</h2>
+                <p>What our students say about us</p>
             </div>
             <div class="testimonial-slider">
                 <div class="testimonial-slide active">
-                    <div class="testimonial-text">
-                        <p>HABIB FX Trading Academy not only improved my trading but also opened up career opportunities in the crypto industry. Thank you Ahmed, for this incredible journey.</p>
-                    </div>
-                    <p class="testimonial-author text-animate text-fade-up">- John D.</p>
+                    <p class="testimonial-text">HABIB FX Trading Academy not only improved my trading but also opened up career opportunities in the crypto industry. Thank you Ahmed, for this incredible journey.</p>
+                    <p class="testimonial-author">- John D.</p>
                 </div>
-                <!-- Other testimonial slides with similar enhancements -->
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">The best trading education I've ever received. The community is amazing and the mentors are always available to help. My trading results have improved dramatically.</p>
+                    <p class="testimonial-author">- Sarah M.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">I went from knowing nothing about crypto to making consistent profits in just 3 months. The structured lessons and live trading sessions are invaluable.</p>
+                    <p class="testimonial-author">- Michael T.</p>
+                </div>
+                <div class="slider-controls">
+                    <div class="slider-dot active" data-slide="0"></div>
+                    <div class="slider-dot" data-slide="1"></div>
+                    <div class="slider-dot" data-slide="2"></div>
+                </div>
+            </div>
+            
+            <!-- More Forex Images -->
+            <div class="image-gallery animate-on-scroll" style="margin-top: 3rem;">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Session">
+                    <div class="gallery-caption">
+                        <h4>Live Trading Session</h4>
+                        <p>Real-time trade execution and analysis</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1642790552729-0a214f8c0f5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trading Tools">
+                    <div class="gallery-caption">
+                        <h4>Professional Trading Tools</h4>
+                        <p>Advanced platforms with custom indicators</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Market Data">
+                    <div class="gallery-caption">
+                        <h4>Real-time Market Data</h4>
+                        <p>Low latency feeds for accurate trading</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Trading Community">
+                    <div class="gallery-caption">
+                        <h4>Active Trading Community</h4>
+                        <p>Connect with thousands of traders worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Choose Your Plan</h2>
+                <p>Select the package that fits your trading goals</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card animate-on-scroll">
+                    <div class="pricing-header">
+                        <h3>VIRTUAL ACADEMY</h3>
+                        <div class="pricing-price">$300</div>
+                        <div class="pricing-period">One Term Fee</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li class="unavailable">Free Ebook</li>
+                            <li class="available">+10 Hours Of Recorded Lessons</li>
+                            <li class="unavailable">Daily Setups And Signals</li>
+                            <li class="unavailable">Community Chat</li>
+                            <li class="available">Community Analysis</li>
+                            <li class="available">Live Lessons And Trading</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-primary" data-plan="virtual" data-amount="300">JOIN THE TEAM</a>
+                    </div>
+                </div>
+                <div class="pricing-card popular animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="pricing-header">
+                        <h3>PHYSICAL ACADEMY</h3>
+                        <div class="pricing-price">$300</div>
+                        <div class="pricing-period">One Term Fee</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li class="unavailable">Free Ebook</li>
+                            <li class="available">+10 Hours Of Recorded Lessons</li>
+                            <li class="available">Daily Setups And Signals</li>
+                            <li class="available">Community Chat</li>
+                            <li class="available">Community Analysis</li>
+                            <li class="available">Live Lessons And Trading</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-primary" data-plan="physical" data-amount="300">JOIN THE TEAM</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Methods -->
+            <div class="payment-methods animate-on-scroll">
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Paystack_Logo.png/1200px-Paystack_Logo.png" alt="Paystack">
+                </div>
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/PayPal_Logo_Icon_2014.svg/1200px-PayPal_Logo_Icon_2014.svg.png" alt="PayPal">
+                </div>
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="Bitcoin">
+                </div>
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/1200px-Ethereum-icon-purple.svg.png" alt="Ethereum">
+                </div>
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa">
+                </div>
+                <div class="payment-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="Mastercard">
+                </div>
             </div>
         </div>
     </section>
@@ -364,12 +2310,95 @@
     <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="newsletter-container">
-            <h2><span class="newsletter-title">Subscribe to Our Newsletter</span></h2>
-            <p class="text-animate text-fade-up">Get the latest trading tips, market analysis, and exclusive offers directly to your inbox.</p>
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest trading tips, market analysis, and exclusive offers directly to your inbox.</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Enter your email address" required>
-                <button type="submit" class="btn"><span>Subscribe</span></button>
+                <button type="submit" class="btn">Subscribe</button>
             </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Have questions? Get in touch with our team</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info animate-on-scroll">
+                    <h3>Contact Information</h3>
+                    <ul class="contact-details">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Trading Street, Financial District, NY 10001</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@habibfxtradingacademy.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Monday - Friday: 9:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                    
+                    <!-- Advanced Social Media Buttons -->
+                    <div class="social-media-buttons">
+                        <a href="#" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-btn youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-btn telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-btn tiktok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form animate-on-scroll" style="transition-delay: 0.1s;">
+                    <h3>Send Us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -378,82 +2407,743 @@
         <div class="container">
             <div class="footer-container">
                 <div class="footer-col">
-                    <h3 class="text-shine">HABIB FX Trading Academy</h3>
-                    <p class="text-animate text-fade-up">Empowering traders with knowledge, skills, and confidence to navigate the financial markets successfully.</p>
+                    <h3>HABIB FX Trading Academy</h3>
+                    <p>Empowering traders with knowledge, skills, and confidence to navigate the financial markets successfully.</p>
+                    
+                    <!-- Social Media Buttons -->
+                    <div class="social-media-buttons">
+                        <a href="#" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#home"><span data-text="Home">Home</span></a></li>
-                        <li><a href="#features"><span data-text="Features">Features</span></a></li>
-                        <li><a href="#why-us"><span data-text="Why Us">Why Us</span></a></li>
-                        <li><a href="#pricing"><span data-text="Pricing">Pricing</span></a></li>
-                        <li><a href="#contact"><span data-text="Contact">Contact</span></a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#why-us">Why Us</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Trading Guides</a></li>
+                        <li><a href="#">Market Analysis</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HABIB FX Trading Academy. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Book Modal -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Purchase "Unlocking Crypto Profits"</h2>
+            <p>Fill out the form below to complete your purchase.</p>
+            <form id="bookPaymentForm">
+                <div class="form-group">
+                    <label for="book-name">Full Name</label>
+                    <input type="text" id="book-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-email">Email</label>
+                    <input type="email" id="book-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-phone">Phone Number</label>
+                    <input type="tel" id="book-phone" required>
+                </div>
+                
+                <!-- Payment Method Selector -->
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-method-selector">
+                        <div class="payment-option" data-method="paystack">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Paystack_Logo.png/1200px-Paystack_Logo.png" alt="Paystack">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="payment-option" data-method="paypal">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/PayPal_Logo_Icon_2014.svg/1200px-PayPal_Logo_Icon_2014.svg.png" alt="PayPal">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="payment-option" data-method="bitcoin">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="Bitcoin">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="book-payment" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Complete Purchase ($48)</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closePaymentModal">&times;</span>
+            <h2>Complete Your Enrollment</h2>
+            <p>Fill out the form below to enroll in our academy.</p>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="plan">Selected Plan</label>
+                    <input type="text" id="plan" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount ($)</label>
+                    <input type="text" id="amount" readonly>
+                </div>
+                
+                <!-- Enhanced Payment Method Selector -->
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-method-selector">
+                        <div class="payment-option" data-method="paystack">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Paystack_Logo.png/1200px-Paystack_Logo.png" alt="Paystack">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="payment-option" data-method="paypal">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/PayPal_Logo_Icon_2014.svg/1200px-PayPal_Logo_Icon_2014.svg.png" alt="PayPal">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="payment-option" data-method="bitcoin">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="Bitcoin">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="payment-option" data-method="ethereum">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/1200px-Ethereum-icon-purple.svg.png" alt="Ethereum">
+                            <div class="checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="payment-method" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal Template -->
+    <div id="successModalTemplate" style="display: none;">
+        <div class="modal-content" style="text-align: center;">
+            <div style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Thank you for your purchase.</p>
+            <p><strong>Amount Paid:</strong> $<span id="successAmount"></span></p>
+            <p><strong>Reference:</strong> <span id="successReference"></span></p>
+            <p>You will receive a confirmation email shortly with access details.</p>
+            <button id="closeSuccessModal" class="btn btn-primary" style="margin-top: 1.5rem;">Continue</button>
+        </div>
+    </div>
+
+    <!-- Paystack Payment Script -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    
     <script>
-        // Previous JavaScript remains the same, adding enhanced text animation triggers below
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
 
-        // Enhanced text animation observer
-        const textAnimations = document.querySelectorAll('.text-animate, .section-title, .hero-title, .highlight-text, .newsletter');
-        
-        const textObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (entry.target.classList.contains('section-title')) {
-                        entry.target.classList.add('visible');
-                    } 
-                    else if (entry.target.classList.contains('hero-title')) {
-                        entry.target.classList.add('visible');
-                    }
-                    else if (entry.target.classList.contains('highlight-text')) {
-                        entry.target.classList.add('visible');
-                    }
-                    else if (entry.target.classList.contains('newsletter')) {
-                        entry.target.classList.add('visible');
-                    }
-                    else {
-                        entry.target.classList.add('visible');
-                    }
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 }
+                
+                // Update active nav link
+                document.querySelectorAll('nav ul li a').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
         });
 
-        textAnimations.forEach(el => {
-            textObserver.observe(el);
-        });
+        // Header scroll effect
+        const header = document.getElementById('header');
+        let lastScroll = 0;
 
-        // Split text into characters for animation
-        function splitText(element) {
-            const text = element.innerText;
-            element.innerHTML = '';
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
             
-            text.split('').forEach((char, i) => {
-                const span = document.createElement('span');
-                span.textContent = char === ' ' ? '&nbsp;' : char;
-                span.style.transitionDelay = `${i * 0.05}s`;
-                element.appendChild(span);
+            if (currentScroll <= 0) {
+                header.classList.remove('scrolled');
+                header.classList.remove('hide');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !header.classList.contains('hide')) {
+                // Scroll down
+                header.classList.add('hide');
+                header.classList.add('scrolled');
+            } else if (currentScroll < lastScroll && header.classList.contains('hide')) {
+                // Scroll up
+                header.classList.remove('hide');
+                header.classList.add('scrolled');
+            }
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', function() {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+            const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+            scrollProgress.style.width = scrollPercentage + '%';
+        });
+
+        // Testimonial slider
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            testimonialSlides.forEach(slide => slide.classList.remove('active'));
+            sliderDots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonialSlides[index].classList.add('active');
+            sliderDots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        sliderDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                showSlide(slideIndex);
+            });
+        });
+
+        // Auto slide change
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % testimonialSlides.length;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Animate on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const windowHeight = window.innerHeight;
+            const scrollPosition = window.scrollY || window.pageYOffset;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top + scrollPosition;
+                const elementHeight = element.offsetHeight;
+                
+                if (scrollPosition > elementPosition - windowHeight + elementHeight * 0.5) {
+                    element.classList.add('visible');
+                }
             });
         }
 
-        // Apply to specific elements
-        document.querySelectorAll('.text-split').forEach(splitText);
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
 
-        // Initialize glitch effects
-        document.querySelectorAll('.text-glitch').forEach(glitch => {
-            glitch.setAttribute('data-text', glitch.textContent);
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
         });
 
-        // Initialize feature list animations
-        document.querySelectorAll('.feature-list li').forEach((item, i) => {
-            item.style.setProperty('--i', i);
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Book Modal functionality
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        const bookModal = document.getElementById('bookModal');
+        const closeModal = document.getElementById('closeModal');
+
+        bookNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            bookModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModal.addEventListener('click', function() {
+            bookModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Payment Modal functionality
+        const paymentModal = document.getElementById('paymentModal');
+        const closePaymentModal = document.getElementById('closePaymentModal');
+        const joinButtons = document.querySelectorAll('.pricing-footer .btn');
+
+        joinButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const plan = this.getAttribute('data-plan');
+                const amount = this.getAttribute('data-amount');
+                
+                document.getElementById('plan').value = plan === 'virtual' ? 'Virtual Academy' : 'Physical Academy';
+                document.getElementById('amount').value = '$' + amount;
+                
+                paymentModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closePaymentModal.addEventListener('click', function() {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === bookModal) {
+                bookModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === paymentModal) {
+                paymentModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Floating coins animation
+        const floatingCoins = document.getElementById('floatingCoins');
+        const coins = ['💰', '💵', '💴', '💶', '💷', '💎', '📈', '📊'];
+
+        function createCoin() {
+            const coin = document.createElement('div');
+            coin.className = 'coin';
+            coin.textContent = coins[Math.floor(Math.random() * coins.length)];
+            
+            // Random position
+            const startPos = Math.random() * 100;
+            coin.style.left = `${startPos}%`;
+            
+            // Random size
+            const size = Math.random() * 1.5 + 1;
+            coin.style.fontSize = `${size}rem`;
+            
+            // Random animation duration
+            const duration = Math.random() * 10 + 10;
+            coin.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            const delay = Math.random() * 5;
+            coin.style.animationDelay = `${delay}s`;
+            
+            floatingCoins.appendChild(coin);
+            
+            // Remove coin after animation completes
+            setTimeout(() => {
+                coin.remove();
+            }, duration * 1000);
+        }
+
+        // Create initial coins
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createCoin, i * 500);
+        }
+
+        // Continue creating coins
+        setInterval(createCoin, 2000);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Enhanced Payment Method Selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Update hidden input value
+                const form = this.closest('form');
+                if (form) {
+                    const input = form.querySelector('input[type="hidden"]');
+                    if (input) {
+                        input.value = this.getAttribute('data-method');
+                    }
+                }
+            });
+        });
+
+        // Initialize first payment option as selected by default
+        document.querySelectorAll('.payment-method-selector').forEach(selector => {
+            const firstOption = selector.querySelector('.payment-option');
+            if (firstOption) {
+                firstOption.click();
+            }
+        });
+
+        // Enhanced Payment Form Handling
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const paymentMethod = document.getElementById('payment-method').value;
+            const amount = document.getElementById('amount').value.replace('$', '') * 100;
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('full-name').value;
+            const phone = document.getElementById('phone').value;
+            const plan = document.getElementById('plan').value;
+            
+            if (!paymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            // Show processing animation
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+
+            // Simulate processing delay
+            setTimeout(() => {
+                if (paymentMethod === 'paystack') {
+                    processPaystackPayment(email, amount, name, phone, plan, 'course');
+                } else if (paymentMethod === 'paypal') {
+                    processPaypalPayment(email, amount, name, phone, plan, 'course');
+                } else {
+                    processCryptoPayment(email, amount, name, phone, plan, paymentMethod, 'course');
+                }
+                
+                // Reset button state
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+        // Book Payment Form Handling
+        document.getElementById('bookPaymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const paymentMethod = document.getElementById('book-payment').value;
+            const amount = 4800; // $48 in cents
+            const email = document.getElementById('book-email').value;
+            const name = document.getElementById('book-name').value;
+            const phone = document.getElementById('book-phone').value;
+            
+            if (!paymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            // Show processing animation
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+
+            // Simulate processing delay
+            setTimeout(() => {
+                if (paymentMethod === 'paystack') {
+                    processPaystackPayment(email, amount, name, phone, 'Unlocking Crypto Profits Book', 'book');
+                } else if (paymentMethod === 'paypal') {
+                    processPaypalPayment(email, amount, name, phone, 'Unlocking Crypto Profits Book', 'book');
+                } else {
+                    processCryptoPayment(email, amount, name, phone, 'Unlocking Crypto Profits Book', paymentMethod, 'book');
+                }
+                
+                // Reset button state
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+        function processPaystackPayment(email, amount, name, phone, item, type) {
+            const handler = PaystackPop.setup({
+                key: 'pk_test_your_paystack_public_key', // Replace with your Paystack public key
+                email: email,
+                amount: amount,
+                currency: 'USD',
+                ref: (type === 'book' ? 'BOOK-' : 'COURSE-') + Math.floor(Math.random() * 1000000000 + 1),
+                firstname: name.split(' ')[0],
+                lastname: name.split(' ')[1] || '',
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Item",
+                            variable_name: "item",
+                            value: item
+                        },
+                        {
+                            display_name: "Phone",
+                            variable_name: "phone",
+                            value: phone
+                        }
+                    ]
+                },
+                callback: function(response) {
+                    // Handle successful payment
+                    showPaymentSuccess(response.reference, item, amount/100);
+                    if (type === 'book') {
+                        document.getElementById('bookPaymentForm').reset();
+                        bookModal.classList.remove('active');
+                    } else {
+                        document.getElementById('paymentForm').reset();
+                        paymentModal.classList.remove('active');
+                    }
+                    document.body.style.overflow = 'auto';
+                },
+                onClose: function() {
+                    // Handle when user closes payment modal
+                    alert('Payment window was closed. You can try again.');
+                }
+            });
+            handler.openIframe();
+        }
+
+        function processPaypalPayment(email, amount, name, phone, item, type) {
+            // In a real implementation, you would integrate PayPal SDK here
+            // This is just a simulation
+            setTimeout(() => {
+                const ref = 'PP-' + Math.floor(Math.random() * 1000000000 + 1);
+                showPaymentSuccess(ref, item, amount/100);
+                if (type === 'book') {
+                    document.getElementById('bookPaymentForm').reset();
+                    bookModal.classList.remove('active');
+                } else {
+                    document.getElementById('paymentForm').reset();
+                    paymentModal.classList.remove('active');
+                }
+                document.body.style.overflow = 'auto';
+            }, 2000);
+        }
+
+        function processCryptoPayment(email, amount, name, phone, item, cryptoType, type) {
+            // In a real implementation, you would show crypto wallet address
+            // This is just a simulation
+            setTimeout(() => {
+                const ref = cryptoType.toUpperCase() + '-' + Math.floor(Math.random() * 1000000000 + 1);
+                showPaymentSuccess(ref, item, amount/100);
+                if (type === 'book') {
+                    document.getElementById('bookPaymentForm').reset();
+                    bookModal.classList.remove('active');
+                } else {
+                    document.getElementById('paymentForm').reset();
+                    paymentModal.classList.remove('active');
+                }
+                document.body.style.overflow = 'auto';
+            }, 2000);
+        }
+
+        function showPaymentSuccess(reference, item, amount) {
+            // Create a success modal
+            const successModal = document.createElement('div');
+            successModal.className = 'modal active';
+            
+            // Clone the success modal template
+            const template = document.getElementById('successModalTemplate').cloneNode(true);
+            template.style.display = 'block';
+            
+            // Update the template content
+            template.querySelector('#successAmount').textContent = amount.toFixed(2);
+            template.querySelector('#successReference').textContent = reference;
+            
+            successModal.appendChild(template);
+            document.body.appendChild(successModal);
+            document.body.style.overflow = 'hidden';
+            
+            document.getElementById('closeSuccessModal').addEventListener('click', function() {
+                successModal.remove();
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        // Enhanced Gallery Item Animations
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'float 6s ease-in-out infinite';
+                }, 10);
+            });
+            
+            item.addEventListener('click', function() {
+                // Create a lightbox view
+                const lightbox = document.createElement('div');
+                lightbox.className = 'modal active';
+                lightbox.style.display = 'flex';
+                lightbox.style.alignItems = 'center';
+                lightbox.style.justifyContent = 'center';
+                lightbox.style.backgroundColor = 'rgba(0,0,0,0.9)';
+                
+                const imgSrc = this.querySelector('img').src;
+                const caption = this.querySelector('.gallery-caption').innerHTML;
+                
+                lightbox.innerHTML = `
+                    <div style="max-width: 90%; max-height: 90%; position: relative;">
+                        <img src="${imgSrc}" style="max-width: 100%; max-height: 80vh; border-radius: 8px;">
+                        <div style="color: white; text-align: center; margin-top: 1rem;">
+                            ${caption}
+                        </div>
+                        <button id="closeLightbox" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(lightbox);
+                document.body.style.overflow = 'hidden';
+                
+                document.getElementById('closeLightbox').addEventListener('click', function() {
+                    lightbox.remove();
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        });
+
+        // Other form submissions
+        document.querySelectorAll('form').forEach(form => {
+            if (!form.id) { // Generic forms without specific handlers
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                });
+            }
+        });
+
+        // Button ripple effect
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
+                
+                const ripple = document.createElement('span');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            });
+        });
+
+        // Active nav link based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
