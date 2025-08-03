@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HABIB FX Trading Academy - Become a Pro Trader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Previous CSS remains the same, adding new text animation styles below */
+
+        /* Enhanced Text Animation Classes */
+        .text-animate {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .text-fade-up {
+            transform: translateY(30px);
+        }
+
+        .text-fade-down {
+            transform: translateY(-30px);
+        }
+
+        .text-fade-left {
+            transform: translateX(50px);
+        }
+
+        .text-fade-right {
+            transform: translateX(-50px);
+        }
+
+        .text-scale-up {
+            transform: scale(0.8);
+        }
+
+        .text-rotate {
+            transform: rotate(5deg);
+        }
+
+        .text-animate.visible {
+            opacity: 1;
+            transform: translate(0) scale(1) rotate(0);
+        }
+
+        /* Character-by-character animation */
+        .text-split {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .text-split span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(1em);
+            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .text-split.visible span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glitch text effect */
+        .text-glitch {
+            position: relative;
+        }
+
+        .text-glitch::before,
+        .text-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .text-glitch::before {
+            color: var(--secondary);
+            animation: glitch-effect 3s infinite;
+        }
+
+        .text-glitch::after {
+            color: var(--primary);
+            animation: glitch-effect 2s infinite reverse;
+        }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); opacity: 0; }
+            20% { transform: translate(-3px, 3px); opacity: 0.6; }
+            40% { transform: translate(-3px, -3px); opacity: 0.6; }
+            60% { transform: translate(3px, 3px); opacity: 0.6; }
+            80% { transform: translate(3px, -3px); opacity: 0.6; }
+            100% { transform: translate(0); opacity: 0; }
+        }
+
+        /* Shine text effect */
+        .text-shine {
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s;
+        }
+
+        .text-shine:hover::after {
+            left: 100%;
+        }
+
+        /* Hero Section Text Enhancements */
+        .hero-title span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px) rotate(5deg);
+            filter: blur(3px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0.5, 1);
+        }
+
+        .hero-title.visible span {
+            opacity: 1;
+            transform: translateY(0) rotate(0);
+            filter: blur(0);
+        }
+
+        /* Section Title Enhancements */
+        .section-title h2 {
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .section-title h2 .title-line {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section-title.visible h2 .title-line {
+            transform: translateY(0);
+        }
+
+        /* Feature List Enhancements */
+        .feature-list li {
+            overflow: hidden;
+        }
+
+        .feature-list li span {
+            display: inline-block;
+            transform: translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.5, 0, 0, 1);
+            transition-delay: calc(0.05s * var(--i));
+        }
+
+        .feature-card:hover .feature-list li span {
+            transform: translateX(0);
+        }
+
+        /* Pricing Card Enhancements */
+        .pricing-header h3 span {
+            display: inline-block;
+            transform: translateY(50%);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .pricing-card:hover .pricing-header h3 span {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Testimonial Text Enhancements */
+        .testimonial-text p {
+            transform: perspective(500px) rotateX(45deg);
+            transform-origin: bottom;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .testimonial-slide.active .testimonial-text p {
+            transform: perspective(500px) rotateX(0);
+            opacity: 1;
+        }
+
+        /* Newsletter Enhancements */
+        .newsletter h2 .newsletter-title {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter h2 .newsletter-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--secondary);
+            transition: width 1s cubic-bezier(0.5, 0, 0, 1);
+            transition-delay: 0.3s;
+        }
+
+        .newsletter.visible h2 .newsletter-title::after {
+            width: 100%;
+        }
+
+        /* Footer Link Enhancements */
+        .footer-links li a {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .footer-links li a span {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .footer-links li a span::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            color: var(--secondary);
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .footer-links li a:hover span {
+            transform: translateY(-100%);
+        }
+
+        .footer-links li a:hover span::before {
+            transform: translateY(-100%);
+        }
+
+        /* Button Text Enhancements */
+        .btn span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover span {
+            transform: translateX(5px);
+        }
+
+        /* Special Highlight Text */
+        .highlight-text {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background-color: rgba(245, 158, 11, 0.3);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .highlight-text.visible::after {
+            transform: scaleX(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Previous HTML remains the same, updating text elements with enhanced animations below -->
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-coins" id="floatingCoins"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span style="transition-delay: 0.1s">Become</span>
+                <span style="transition-delay: 0.2s">a Pro</span>
+                <span style="transition-delay: 0.3s">Trader</span>
+                <span style="transition-delay: 0.4s">With</span>
+                <span style="transition-delay: 0.5s">Academy</span>
+            </h1>
+            <p class="text-animate text-fade-up" style="transition-delay: 0.6s">In the race to end poverty...</p>
+            <a href="#pricing" class="btn"><span>JOIN THE TEAM</span></a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2><span class="title-line">Complete Trading Masterclass</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <h3 class="text-glitch" data-text="Signals And Setups">Signals And Setups</h3>
+                    <ul class="feature-list">
+                        <li><span style="--i:0">Real-time setups with strategy sent out</span></li>
+                        <li><span style="--i:1">Exact entry and exit prices</span></li>
+                        <li><span style="--i:2">1 - 5 trade setups sent out daily</span></li>
+                        <li><span style="--i:3">Understand the "WHY" of every trade</span></li>
+                        <li><span style="--i:4">Market updates/insights</span></li>
+                        <li><span style="--i:5">Copy every single trade I take</span></li>
+                    </ul>
+                </div>
+                <!-- Other feature cards with similar enhancements -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section why-choose-us" id="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2><span class="title-line">Why Choose HABIB FX Trading Academy?</span></h2>
+                <p class="text-animate text-fade-up">Our <span class="highlight-text">mentorship program</span> is designed to provide traders with personalized guidance, resources and best support in taking account their trading skill level and goals.</p>
+            </div>
+            <div class="reasons-container">
+                <div class="reason-card animate-on-scroll">
+                    <div class="reason-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-animate text-scale-up">Expert Guidance</h3>
+                    <p class="text-animate text-fade-up">Gain access to <span class="text-shine">experienced traders</span> and instructors who can provide valuable insights and mentorship to help you navigate the complex world of cryptocurrency trading.</p>
+                </div>
+                <!-- Other reason cards with similar enhancements -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2><span class="title-line">Reviews</span></h2>
+                <p class="text-animate text-fade-up">What our <span class="text-shine">students</span> say about us</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-text">
+                        <p>HABIB FX Trading Academy not only improved my trading but also opened up career opportunities in the crypto industry. Thank you Ahmed, for this incredible journey.</p>
+                    </div>
+                    <p class="testimonial-author text-animate text-fade-up">- John D.</p>
+                </div>
+                <!-- Other testimonial slides with similar enhancements -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2><span class="newsletter-title">Subscribe to Our Newsletter</span></h2>
+            <p class="text-animate text-fade-up">Get the latest trading tips, market analysis, and exclusive offers directly to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn"><span>Subscribe</span></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3 class="text-shine">HABIB FX Trading Academy</h3>
+                    <p class="text-animate text-fade-up">Empowering traders with knowledge, skills, and confidence to navigate the financial markets successfully.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><span data-text="Home">Home</span></a></li>
+                        <li><a href="#features"><span data-text="Features">Features</span></a></li>
+                        <li><a href="#why-us"><span data-text="Why Us">Why Us</span></a></li>
+                        <li><a href="#pricing"><span data-text="Pricing">Pricing</span></a></li>
+                        <li><a href="#contact"><span data-text="Contact">Contact</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Previous JavaScript remains the same, adding enhanced text animation triggers below
+
+        // Enhanced text animation observer
+        const textAnimations = document.querySelectorAll('.text-animate, .section-title, .hero-title, .highlight-text, .newsletter');
+        
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('section-title')) {
+                        entry.target.classList.add('visible');
+                    } 
+                    else if (entry.target.classList.contains('hero-title')) {
+                        entry.target.classList.add('visible');
+                    }
+                    else if (entry.target.classList.contains('highlight-text')) {
+                        entry.target.classList.add('visible');
+                    }
+                    else if (entry.target.classList.contains('newsletter')) {
+                        entry.target.classList.add('visible');
+                    }
+                    else {
+                        entry.target.classList.add('visible');
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        textAnimations.forEach(el => {
+            textObserver.observe(el);
+        });
+
+        // Split text into characters for animation
+        function splitText(element) {
+            const text = element.innerText;
+            element.innerHTML = '';
+            
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.textContent = char === ' ' ? '&nbsp;' : char;
+                span.style.transitionDelay = `${i * 0.05}s`;
+                element.appendChild(span);
+            });
+        }
+
+        // Apply to specific elements
+        document.querySelectorAll('.text-split').forEach(splitText);
+
+        // Initialize glitch effects
+        document.querySelectorAll('.text-glitch').forEach(glitch => {
+            glitch.setAttribute('data-text', glitch.textContent);
+        });
+
+        // Initialize feature list animations
+        document.querySelectorAll('.feature-list li').forEach((item, i) => {
+            item.style.setProperty('--i', i);
+        });
+    </script>
+</body>
+</html>
