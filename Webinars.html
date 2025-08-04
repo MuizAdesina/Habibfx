@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Webinar: From Car Electrician to Forex Mentor | Habib FX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .webinar-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .webinar-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .webinar-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .divider {
+            height: 3px;
+            background: var(--accent);
+            width: 100px;
+            margin: 20px auto;
+            border-radius: 3px;
+        }
+        
+        .webinar-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .webinar-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .webinar-form {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .benefits-list {
+            margin: 30px 0;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .register-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+        
+        .register-btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .countdown {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .countdown-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .countdown-item {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            min-width: 80px;
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light);
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .webinar-title {
+                font-size: 2rem;
+            }
+            
+            .webinar-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://via.placeholder.com/200x60?text=Habib+FX" alt="Habib FX Logo" class="logo">
+        </header>
+        
+        <div class="webinar-hero">
+            <h1 class="webinar-title">Live Webinar with Habib FX</h1>
+            <div class="divider"></div>
+            <h2 class="webinar-subtitle">From Car Electrician to Forex Mentor – Learn the Habib FX Way</h2>
+        </div>
+        
+        <div class="countdown">
+            <h3 class="countdown-title">Webinar Starts In:</h3>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="webinar-content">
+            <div class="webinar-details">
+                <h2 class="section-title">🔥 What You'll Learn:</h2>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h3>How to start trading Forex from scratch</h3>
+                            <p>Perfect for beginners - I'll show you exactly where to begin</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h3>My exact support & resistance strategy that flips accounts</h3>
+                            <p>The same method I used to grow my trading account</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h3>Risk management techniques</h3>
+                            <p>How to never blow your account again</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h3>Live chart breakdowns</h3>
+                            <p>NY session focused analysis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h3>The mindset that took me from POS business to 6-figure trading</h3>
+                            <p>Mental strategies for consistent profits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-form">
+                <h2 class="section-title">Register Now</h2>
+                <p style="text-align: center; margin-bottom: 30px;">Limited seats available</p>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Trading Experience</label>
+                        <select id="experience" required>
+                            <option value="">Select your level</option>
+                            <option value="beginner">Beginner (0-6 months)</option>
+                            <option value="intermediate">Intermediate (6-12 months)</option>
+                            <option value="advanced">Advanced (1+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="register-btn">Secure My Spot Now</button>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© <span id="year"></span> Habib FX. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Countdown timer (set to next Friday 7PM)
+        function updateCountdown() {
+            const now = new Date();
+            let webinarDate = new Date();
+            
+            // Set to next Friday 7PM
+            webinarDate.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
+            webinarDate.setHours(19, 0, 0, 0);
+            
+            // If it's already past this Friday 7PM, set to next Friday
+            if (now > webinarDate) {
+                webinarDate.setDate(webinarDate.getDate() + 7);
+            }
+            
+            const diff = webinarDate - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            // Here you would normally send this data to your server
+            // For demo, we'll just show an alert
+            alert(`Thank you ${name}! Your registration is confirmed. We've sent details to ${email}.`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Animation for benefit items
+        document.addEventListener('DOMContentLoaded', function() {
+            const benefits = document.querySelectorAll('.benefit-item');
+            
+            benefits.forEach((benefit, index) => {
+                setTimeout(() => {
+                    benefit.style.opacity = '1';
+                    benefit.style.transform = 'translateX(0)';
+                }, index * 200);
+                
+                // Initial state
+                benefit.style.opacity = '0';
+                benefit.style.transform = 'translateX(-20px)';
+                benefit.style.transition = 'all 0.5s ease';
+            });
+        });
+    </script>
+</body>
+</html>
