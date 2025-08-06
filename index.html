@@ -336,7 +336,7 @@
         }
 
         .btn-primary {
-    background-color: #81555500;
+    background-color: #0000ff;
             color: white;
         }
 
@@ -2046,7 +2046,7 @@
     <header id="header">
         <div class="container header-container">
             <div class="logo">
-                <img src="Habib_logo-removebg-preview (1).png" alt="" style="width: 80px; height: 80px;">
+                <img src="Habib_logo-removebg-preview (1).png" alt="" style="width: 100px; height: 100px;">
                 <i class="fas fa-chart-line" style="display: none;"></i>
                 <span style="font-size: 15px;">HABIB FX Trading Academy</span>
             </div>
@@ -2454,7 +2454,7 @@ Join the elite. Trade like a pro.</p>
                 <div class="pricing-card animate-on-scroll">
                     <div class="pricing-header">
                         <h3>VIRTUAL ACADEMY</h3>
-                        <div class="pricing-price">#200,000</div>
+                        <div class="pricing-price">₦200,000</div>
                         <div class="pricing-period">1 Month Access</div>
                     </div>
                     <div class="pricing-features">
@@ -2470,12 +2470,12 @@ Join the elite. Trade like a pro.</p>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" data-plan="virtual" data-amount="200,000">JOIN THE TEAM</a>
+                        <a href="₦" class="btn btn-primary" data-plan="virtual" data-amount="200,000">JOIN THE TEAM</a>
                     </div>
                        <div class="pricing-card popular animate-on-scroll" style="transition-delay: 0.1s;">
                     <div class="pricing-header">
                         <h3>VIRTUAL ACADEMY</h3>
-                        <div class="pricing-price">#400,000</div>
+                        <div class="pricing-price">₦400,000</div>
                         <div class="pricing-period">2 Months Access</div>
                     </div>
                     <div class="pricing-features">
@@ -2491,7 +2491,7 @@ Join the elite. Trade like a pro.</p>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" data-plan="virtual" data-amount="400,000">JOIN THE TEAM</a>
+                        <a href="₦" class="btn btn-primary" data-plan="virtual" data-amount="400,000">JOIN THE TEAM</a>
                     </div>
                 </div>
                 
@@ -2500,7 +2500,7 @@ Join the elite. Trade like a pro.</p>
                 <div class="pricing-card popular animate-on-scroll" style="transition-delay: 0.1s;">
                     <div class="pricing-header">
                         <h3>VIRTUAL ACADEMY</h3>
-                        <div class="pricing-price">#700,000</div>
+                        <div class="pricing-price">₦700,000</div>
                         <div class="pricing-period">3 Months Access</div>
                     </div>
                     <div class="pricing-features">
@@ -2516,13 +2516,13 @@ Join the elite. Trade like a pro.</p>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" data-plan="virtual" data-amount="700,000">JOIN THE TEAM</a>
+                        <a href="₦" class="btn btn-primary" data-plan="virtual" data-amount="700,000">JOIN THE TEAM</a>
                     </div>
                 </div>
                 <div class="pricing-card popular animate-on-scroll" style="transition-delay: 0.1s;">
                     <div class="pricing-header">
                         <h3>PERSONAL MENTORSHIP 1-ON-1</h3>
-                        <div class="pricing-price">#500,000</div>
+                        <div class="pricing-price">₦500,000</div>
                         <div class="pricing-period">2 Month Personal Mentorship</div>
                     </div>
                     <div class="pricing-features">
@@ -2539,7 +2539,7 @@ Join the elite. Trade like a pro.</p>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" data-plan="virtual" data-amount="500,000">JOIN THE TEAM</a>
+                        <a href="₦" class="btn btn-primary" data-plan="virtual" data-amount="500,000">JOIN THE TEAM</a>
                     </div>
                 </div>
             </div>
@@ -2817,7 +2817,7 @@ Join the elite. Trade like a pro.</p>
                     <input type="text" id="plan" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="amount">Amount ($)</label>
+                    <label for="amount">Amount (₦)</label>
                     <input type="text" id="amount" readonly>
                 </div>
                 
@@ -2858,7 +2858,7 @@ Join the elite. Trade like a pro.</p>
             </div>
             <h2>Payment Successful!</h2>
             <p>Thank you for your purchase.</p>
-            <p><strong>Amount Paid:</strong> $<span id="successAmount"></span></p>
+            <p><strong>Amount Paid:</strong> ₦<span id="successAmount"></span></p>
             <p><strong>Reference:</strong> <span id="successReference"></span></p>
             <p>You will receive a confirmation email shortly with access details.</p>
             <button id="closeSuccessModal" class="btn btn-primary" style="margin-top: 1.5rem;">Continue</button>
@@ -3040,7 +3040,7 @@ Join the elite. Trade like a pro.</p>
                 const amount = this.getAttribute('data-amount');
                 
                 document.getElementById('plan').value = plan === 'virtual' ? 'Virtual Academy' : 'Physical Academy';
-                document.getElementById('amount').value = '$' + amount;
+                document.getElementById('amount').value = '₦' + amount;
                 
                 paymentModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -3313,8 +3313,8 @@ Join the elite. Trade like a pro.</p>
             template.style.display = 'block';
             
             // Update the template content
-            template.querySelector('#successAmount').textContent = amount.toFixed(2);
-            template.querySelector('#successReference').textContent = reference;
+            template.querySelector('₦successAmount').textContent = amount.toFixed(2);
+            template.querySelector('₦successReference').textContent = reference;
             
             successModal.appendChild(template);
             document.body.appendChild(successModal);
